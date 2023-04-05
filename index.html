@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link href="./index.css" rel="stylesheet" />
+    <title>A - sort</title>
+  </head>
+  <body>
+    <main class="main">
+      <div class="controls">
+        <fieldset class="control-group sort-controls">
+          <button class="button bubble-sort-button">Bubble Sort</button>
+          <button class="button selection-sort-button">Selection Sort</button>
+        </fieldset>
+        <fieldset class="control-group simulation-controls">
+          <label class="label"
+            >Speed
+            <input type="range" class="slider speed-slider" min="0" max="100" />
+          </label>
+        </fieldset>
+        <fieldset class="control-group array-controls">
+          <label class="label"
+            >Array length
+            <input
+              type="range"
+              class="slider length-slider"
+              min="10"
+              max="300"
+            />
+          </label>
+          <button class="button reset-array-button">Reset Array</button>
+        </fieldset>
+      </div>
+    </main>
+    <script src="./index.js" type="module"></script>
+  </body>
+</html>
