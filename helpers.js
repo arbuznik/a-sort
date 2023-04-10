@@ -38,28 +38,60 @@ export const renderArray = (arr, selector) => {
   arr.forEach((el, index) => renderArrayElement(el, selector, index));
 };
 
-export const swapElements = async (arr, i, j, selector) => {
+export const swapElements = async (arr, targetIndex, swapIndex, selector) => {
   const container = document.querySelector(`.${selector}`);
 
   if (container) {
-    const iEl = container.querySelector(`.element${i}`);
-    const jEl = container.querySelector(`.element${j}`);
+    const iEl = container.querySelector(`.element${targetIndex}`);
+    const jEl = container.querySelector(`.element${swapIndex}`);
 
     if (iEl && jEl) {
       iEl.classList.add("swap-element");
       await delay(sortSpeed);
       jEl.classList.add("swap-target");
       await delay(sortSpeed);
-      iEl.style.height = `${arr[j] * HEIGHT_K}px`;
+      iEl.style.height = `${arr[swapIndex] * HEIGHT_K}px`;
       await delay(sortSpeed);
-      jEl.style.height = `${arr[i] * HEIGHT_K}px`;
+      jEl.style.height = `${arr[targetIndex] * HEIGHT_K}px`;
       await delay(sortSpeed);
       iEl.classList.remove("swap-element");
       jEl.classList.remove("swap-target");
     }
   }
 
-  const t = arr[j];
-  arr[j] = arr[i];
-  arr[i] = t;
+  const t = arr[swapIndex];
+  arr[swapIndex] = arr[targetIndex];
+  arr[targetIndex] = t;
+};
+
+export const copyElement = async (arr, targetIndex, copyIndex, selector) => {
+  const container = document.querySelector(`.${selector}`);
+
+  if (container) {
+    const targetEL = container.querySelector(`.element${targetIndex}`);
+    const copyEl = container.querySelector(`.element${copyIndex}`);
+
+    if (targetEL && copyEl) {
+      targetEL.classList.add("swap-element");
+      await delay(sortSpeed);
+      copyEl.classList.add("swap-target");
+      await delay(sortSpeed);
+      targetEL.style.height = `${arr[copyIndex] * HEIGHT_K}px`;
+      await delay(sortSpeed);
+      targetEL.classList.remove("swap-element");
+      copyEl.classList.remove("swap-target");
+    }
+  }
+
+  arr[targetIndex] = arr[copyIndex];
+};
+
+export const setElementValue = async (arr, targetIndex, value, selector) => {
+  const container = document.querySelector(`.${selector}`);
+
+  if (container) {
+    const targetEL = container.querySelector(`.element${targetIndex}`);
+    targetEL.style.height = `${value * HEIGHT_K}px`;
+    await delay(sortSpeed);
+  }
 };

@@ -1,7 +1,7 @@
 import { generateArr, generateSelector, renderArray } from "./helpers.js";
-import { bubbleSort, selectionSort } from "./sort-algos.js";
+import { bubbleSort, insertSort, selectionSort } from "./sort-algos.js";
 
-const STARTING_SPEED = 20;
+const STARTING_SPEED = 80;
 const STARTING_ARRAY_LENGTH = 100;
 export const HEIGHT_K = 5;
 
@@ -14,6 +14,11 @@ const initArray = () => {
   initialArraySelector = generateSelector();
   initialArray = generateArr(arrayLength);
   renderArray(initialArray, initialArraySelector);
+};
+
+const disableSortButtons = (disable) => {
+  const buttons = document.querySelectorAll(".sort-button");
+  buttons.forEach((button) => (button.disabled = disable));
 };
 
 const addListeners = () => {
@@ -30,22 +35,27 @@ const addListeners = () => {
 
   const bubbleSortButton = document.querySelector(".bubble-sort-button");
   bubbleSortButton.addEventListener("click", async () => {
-    bubbleSort(initialArray, initialArraySelector);
-    bubbleSortButton.disabled = true;
+    disableSortButtons(true);
+    await bubbleSort(initialArray, initialArraySelector);
   });
 
   const selectionSortButton = document.querySelector(".selection-sort-button");
   selectionSortButton.addEventListener("click", async () => {
-    selectionSort(initialArray, initialArraySelector);
-    selectionSortButton.disabled = true;
+    disableSortButtons(true);
+    await selectionSort(initialArray, initialArraySelector);
+  });
+
+  const insertSortButton = document.querySelector(".insert-sort-button");
+  insertSortButton.addEventListener("click", async () => {
+    disableSortButtons(true);
+    await insertSort(initialArray, initialArraySelector);
   });
 
   const initNewArrayButton = document.querySelector(".reset-array-button");
   initNewArrayButton.addEventListener("click", () => {
     document.querySelector(`.${initialArraySelector}`).remove();
     initArray();
-    bubbleSortButton.disabled = false;
-    selectionSortButton.disabled = false;
+    disableSortButtons(false);
   });
 };
 

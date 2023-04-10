@@ -1,63 +1,45 @@
-import { swapElements } from "./helpers.js";
+import { copyElement, setElementValue, swapElements } from "./helpers.js";
 
 export const bubbleSort = async (array, selector) => {
-  let arr = [...array];
   let sort = false;
 
   do {
     sort = false;
 
-    for (let i = 0; i < arr.length - 1; i++) {
-      if (arr[i] > arr[i + 1]) {
-        await swapElements(arr, i, i + 1, selector);
+    for (let i = 0; i < array.length - 1; i++) {
+      if (array[i] > array[i + 1]) {
+        await swapElements(array, i, i + 1, selector);
         sort = true;
       }
     }
   } while (sort);
-
-  return arr;
 };
 
 export const selectionSort = async (array, selector) => {
-  let arr = [...array];
-
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < array.length; i++) {
     let minIndex = i;
 
-    for (let j = i + 1; j < arr.length; j++) {
-      if (arr[j] < arr[minIndex]) {
+    for (let j = i + 1; j < array.length; j++) {
+      if (array[j] < array[minIndex]) {
         minIndex = j;
       }
     }
 
-    await swapElements(arr, i, minIndex, selector);
-    // const t = arr[minIndex];
-    // arr[minIndex] = arr[i];
-    // arr[i] = t;
+    await swapElements(array, i, minIndex, selector);
   }
-
-  return arr;
 };
 
-// const selectionSort = async (array) => {
-//   let arr = [...array];
-//
-//   renderArray(arr, ".sorted-array");
-//
-//   for (let i = 0; i < arr.length; i++) {
-//     let minIndex = i;
-//
-//     for (let j = i + 1; j < arr.length; j++) {
-//       if (arr[j] < arr[minIndex]) {
-//         minIndex = j;
-//       }
-//     }
-//
-//     await swapElements(arr, minIndex, i, ".sorted-array");
-//     // const t = arr[minIndex];
-//     // arr[minIndex] = arr[i];
-//     // arr[i] = t;
-//   }
-//
-//   return arr;
-// };
+export const insertSort = async (array, selector) => {
+  for (let i = 0; i < array.length; i++) {
+    const temp = array[i];
+    let j = i - 1;
+
+    while (j >= 0 && array[j] > temp) {
+      await copyElement(array, j + 1, j, selector);
+      j--;
+    }
+
+    array[j + 1] = temp;
+    await setElementValue(array, j + 1, temp, selector);
+  }
+};
