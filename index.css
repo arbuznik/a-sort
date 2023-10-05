@@ -27,11 +27,11 @@ html {
 }
 
 .swap-element {
-    background-color: gold;
+    background-color: black;
 }
 
 .swap-target {
-    background-color: crimson;
+    background-color: gold;
 }
 
 .focus-element {
